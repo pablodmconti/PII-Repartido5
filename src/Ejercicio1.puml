@@ -22,7 +22,7 @@ class Agenda {
   + buscarContactoPorEtiqueta(etiqueta: Etiqueta): List<Contacto>
 }
 
-' Relaciones
+' --- Relaciones ---
 Contacto "1" -- "*" Etiqueta : tiene >
 Agenda "1" o-- "*" Contacto : gestiona >
 

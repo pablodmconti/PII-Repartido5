@@ -33,7 +33,7 @@ class Producto {
   + actualizarPrecio(nuevoPrecio: float): void
 }
 
-' Relaciones
+' --- Relaciones ---
 Cliente "1" -- "*" Pedido : realiza >
 Pedido "1" -- "1..*" DetallePedido : contiene >
 DetallePedido "*" -- "1" Producto : corresponde a >
