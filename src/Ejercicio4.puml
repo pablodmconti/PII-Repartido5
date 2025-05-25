@@ -1,7 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-' Clases
 abstract class Usuario {
   # nombreUsuario: String
   # email: String
