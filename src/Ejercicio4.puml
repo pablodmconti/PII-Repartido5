@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Clases
+abstract class Usuario {
+  # nombreUsuario: String
+  # email: String
+  # fechaRegistro: Date
+  + publicar(contenido: String): Publicacion
+  + comentar(publicacion: Publicacion, texto: String): Comentario
+  + seguirUsuario(usuario: Usuario): void
+  + unirseAGrupo(grupo: Grupo): void
+  + verPerfil(): void
+}
+
+class Estudiante extends Usuario {
+  + carrera: String
+  + anioIngreso: int
+}
+
+class Docente extends Usuario {
+  + departamento: String
+  + especialidad: String
+}
+
+class Egresado extends Usuario {
+  + anioEgreso: int
+  + profesionActual: String
+}
+
+class Publicacion {
+  - idPublicacion: String
+  - contenido: String
+  - fechaPublicacion: Date
+  - autor: Usuario
+  + agregarComentario(comentario: Comentario): void
+  + obtenerComentarios(): Comentario[]
+}
+
+class Comentario {
+  - idComentario: String
+  - texto: String
+  - fechaComentario: Date
+  - autor: Usuario
+}
+
+class Grupo {
+  - idGrupo: String
+  - nombre: String
+  - descripcion: String
+  - fechaCreacion: Date
+  + agregarMiembro(usuario: Usuario): void
+  + eliminarMiembro(usuario: Usuario): void
+  + crearPublicacionEnGrupo(usuario: Usuario, contenido: String): Publicacion
+}
+
+' ' --- Relaciones ---
+Usuario "1" -- "*" Publicacion : "crea >"
+Usuario "1" -- "*" Comentario : "escribe >"
+Usuario "0..*" -- "0..*" Usuario : "sigue >"
+
+Publicacion "1" -- "*" Comentario : "tiene >"
+Publicacion "1" -- "1" Usuario : "publicada por <"
+
+Comentario "1" -- "1" Usuario : "comentado por <"
+
+Usuario "0..*" -- "*" Grupo : "participa en >"
+Grupo "1" -- "0..*" Usuario : "< tiene como miembros"
+Grupo "0..*" -- "0..*" Publicacion : "contiene >" (Una publicación puede estar en un grupo)
+
+@enduml
