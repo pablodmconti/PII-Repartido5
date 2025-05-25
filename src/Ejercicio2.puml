@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Cliente {
+  - idCliente: String
+  - nombre: String
+  - direccion: String
+  - telefono: String
+  + realizarPedido(pedido: Pedido): void
+}
+
+class Pedido {
+  - idPedido: String
+  - fecha: Date
+  - estado: String
+  + agregarProducto(producto: Producto, cantidad: int): void
+  + calcularTotal(): float
+  + confirmarPedido(): void
+  + obtenerDetalles(): List<DetallePedido>
+}
+
+class DetallePedido {
+  - cantidad: int
+  - precioUnitario: float ' Precio al momento de la compra
+  + calcularSubtotal(): float
+}
+
+class Producto {
+  - codigo: String
+  - nombre: String
+  - precioActual: float
+  + obtenerInformacion(): String
+  + actualizarPrecio(nuevoPrecio: float): void
+}
+
+' Relaciones
+Cliente "1" -- "*" Pedido : realiza >
+Pedido "1" -- "1..*" DetallePedido : contiene >
+DetallePedido "*" -- "1" Producto : corresponde a >
+
+@enduml

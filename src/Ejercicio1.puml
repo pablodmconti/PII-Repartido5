@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Contacto {
+  - nombre: String
+  - telefono: String
+  - correo: String
+  + agregarContacto(contacto: Contacto)
+  + eliminarContacto(contacto: Contacto)
+  + buscarContacto(nombre: String): Contacto
+}
+
+class Etiqueta {
+  - nombreEtiqueta: String
+}
+
+class Agenda {
+  - contactos: List<Contacto>
+  + agregarContactoAgenda(contacto: Contacto)
+  + eliminarContactoAgenda(contacto: Contacto)
+  + buscarContactoPorNombre(nombre: String): Contacto
+  + buscarContactoPorEtiqueta(etiqueta: Etiqueta): List<Contacto>
+}
+
+' Relaciones
+Contacto "1" -- "*" Etiqueta : tiene >
+Agenda "1" o-- "*" Contacto : gestiona >
+
+@enduml
