@@ -5,25 +5,24 @@ class Contacto {
   - nombre: String
   - telefono: String
   - correo: String
+  + etiquetas: Etiqueta[]
+  +agregarEtiqueta(etiqueta: Etiqueta): void
+  +eliminarEtiqueta(etiqueta: Etiqueta): void
+}
+
+class Agenda {
+  - contactos: Contacto[]
   + agregarContacto(contacto: Contacto)
   + eliminarContacto(contacto: Contacto)
   + buscarContacto(nombre: String): Contacto
 }
 
 class Etiqueta {
-  - nombreEtiqueta: String
-}
-
-class Agenda {
-  - contactos: List<Contacto>
-  + agregarContactoAgenda(contacto: Contacto)
-  + eliminarContactoAgenda(contacto: Contacto)
-  + buscarContactoPorNombre(nombre: String): Contacto
-  + buscarContactoPorEtiqueta(etiqueta: Etiqueta): List<Contacto>
+  - nombre: String
 }
 
 ' --- Relaciones ---
 Contacto "1" -- "*" Etiqueta : tiene
-Agenda "1" o-- "*" Contacto : gestiona
+Agenda "1" -- "*" Contacto : gestiona
 
 @enduml

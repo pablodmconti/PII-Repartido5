@@ -2,67 +2,55 @@
 'https://plantuml.com/class-diagram
 
 class Paciente {
-  + idPaciente: String
-  + nombre: String
-  + fechaNacimiento: Date
-  + solicitarTurno()
-  + verHistorial()
-}
-
-class Historial {
-  + idHistorial: String
-  + fechaCreacion: Date
-  + agregarEntrada(entrada: String)
-  + consultarDiagnosticos(): List<String>
+  - id: String
+  - ci: String
+  - nombre: String
+  +solicitarTurno(medico: Medico, fecha: Date): Turno
 }
 
 class Medico {
-  + idMedico: String
-  + nombre: String
-  + especialidad: String
-  + atenderPaciente(paciente: Paciente)
-  + emitirDiagnostico()
-}
-
-class Area {
-  + idArea: String
-  + nombreArea: String
-  + descripcion: String
-  + listarMedicos(): List<Medico>
+  - nombre: String
+  - matricula: String
+  + atender(turno: Turno): void
 }
 
 class Turno {
-  + idTurno: String
-  + fechaHora: DateTime
-  + motivoConsulta: String
-  + estado: String
-  + confirmarTurno()
-  + cancelarTurno()
+  - fecha: Date
+  - hora: Time
+  - estado: String
 }
 
-' --- Herencia para tipos de Médicos ---
-abstract class MedicoBase {
-  + idMedico: String
-  + nombre: String
-  + atenderPaciente(paciente: Paciente)
+class Historial {
+  - registros: RegistroMedico[]
+  + agregarRegistro(registro: RegistroMedico): void
 }
 
-class Cirujano extends MedicoBase {
-  + tipoCirugiaPrincipal: String
-  + realizarCirugia()
+class Cirujano extends Medico {
+  + realizarOperacion(): void
 }
 
-class Clinico extends MedicoBase {
-  + especialidadClinica: String
-  + realizarChequeoGeneral()
+class Clinico extends Medico {
+  + realizarConsulta(): void
+}
+
+class Area {
+  - codigo: String
+  - nombre: String
+}
+
+class RegistroMedico{
+    - fecha: Date
+    - descripcion: String
+    + getRegistro(): String
 }
 
 ' --- Relaciones ---
-Paciente "1" -- "1" Historial : tiene
-Paciente "1" -- "0..*" Turno : tiene / solicita
-Medico "1" -- "0..*" Turno : atiende en / tiene asignado
-Medico "1..*" -- "1" Area : pertenece a
-Turno "1" -- "1" Medico : es con
-Turno "1" -- "1" Paciente : es para
+Paciente "1" -- "1" Historial: tiene
+Paciente "1" -- "*" Turno: tiene
+Medico "1" -- "*" Turno: atiende
+Medico "1" -- "*" Area: pertenece
+Medico "1" -- "*" RegistroMedico: realiza
+Historial "1" -- "*" RegistroMedico: contiene
+
 
 @enduml
