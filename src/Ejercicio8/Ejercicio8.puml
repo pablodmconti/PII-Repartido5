@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Empleado {
+    - nombre: String
+    - cargo: String
+    - sueldo: double
+    + getNombre(): String
+    + setNombre(nuevoNombre: String): void
+    + getCargo(): String
+    + setCargo(nuevoCargo: String): void
+    + getSueldo(): double
+    + setSueldo(nuevoSueldo: double): void
+    + getSueldoFinal(): double
+}
+
+@enduml
