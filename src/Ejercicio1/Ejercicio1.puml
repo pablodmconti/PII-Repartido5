@@ -23,7 +23,7 @@ class Agenda {
 }
 
 ' --- Relaciones ---
-Contacto "1" -- "*" Etiqueta : tiene >
-Agenda "1" o-- "*" Contacto : gestiona >
+Contacto "1" -- "*" Etiqueta : tiene
+Agenda "1" o-- "*" Contacto : gestiona
 
 @enduml
